@@ -12,14 +12,6 @@ contract DogsOfDallas {
     _;
   }
 
-//  This contract achieves the following goals:
-//  1. DogsOfDallas is a contract that allows owners of dogs in the city of Dallas to register their dogs for a profile on the blockchain.
-//  2. DogsOfDallas is a contract that allows owners of dogs in the city of Dallas to update their dogs' profiles on the blockchain.
-//  3. DogsOfDallas is a contract that allows owners of dogs in the city of Dallas to delete their dogs' profiles on the blockchain.
-//  4. DogsOfDallas is a contract that allows owners of dogs in the city of Dallas to view their dogs' profiles on the blockchain.
-//  5. DogsOfDallas is a contract that allows owners of dogs in the city of Dallas to view the number of dogs registered on the blockchain.
-
-// Lets start there
   struct Dog {
         uint id;
         string name;
@@ -30,22 +22,11 @@ contract DogsOfDallas {
         address[] owners;
     }
 
-    // Array of dogs
     Dog[] dogs;
-
-    // Number of dogs
     uint dogs_count;
-
-    // Number of dogs registered
     uint dogs_registered;
-
-    // Number of dogs updated
     uint dogs_updated;
-
-    // Number of dogs deleted
     uint dogs_deleted;
-
-    // Number of dogs viewed
     uint dogs_viewed;
     
     function DogsOfDallas() {
@@ -56,8 +37,8 @@ contract DogsOfDallas {
         dogs_viewed = 0;
     }
 
-    // This function allows owners of dogs in the city of Dallas to register their dogs for a profile on the blockchain.
-    function registerDog(string _name, string _birthdate, string[] _breeds) public {
+    // Add a new dog to the registry
+    function registerDog(string memory _name, string memory _birthdate, string[] memory _breeds) public {
         dogs_registered++;
         dogs_count++;
         dogs.push(Dog({
@@ -69,12 +50,14 @@ contract DogsOfDallas {
         }));
     }
 
-    // This function allows owners of dogs in the city of Dallas to update their dogs' profiles on the blockchain.
-    function updateDog(uint _id, string _name, string _birthdate, string[] _breeds) public {
+    // Update a dog by owner address and dog id
+    function updateDog(address _owner, uint _dog_id, string memory _name, string memory _birthdate, string[] memory _breeds) public {
         dogs_updated++;
-        dogs[_id].name = _name;
-        dogs[_id].birthdate = _birthdate;
-        dogs[_id].breeds = _breeds;
+        Dog memory dog = dogs[_dog_id - 1];
+        require(dog.owners[0] == _owner, "Only the owner of a dog can update it");
+        dog.name = _name;
+        dog.birthdate = _birthdate;
+        dog.breeds = _breeds;
     }
 
     // This function allows owners of dogs in the city of Dallas to delete their dogs' profiles on the blockchain.
