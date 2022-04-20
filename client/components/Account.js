@@ -9,7 +9,7 @@ function App() {
   const [account, setAccount] = useState(); // state variable to set account.
   const [contract, setContract] = useState(); // state variable to set contract.
   const [contractMethods, setContractMethods] = useState(); // state variable to set contract methods.
-  
+
   useEffect(() => {
     async function load() {
       const web3 = new Web3(Web3.givenProvider || 'http://localhost:7545');
@@ -33,11 +33,11 @@ function App() {
         setContractMethods(contractMethods);
       });
     }
-    
-    load();
-   }, []);
 
-   useEffect(() => {
+    load();
+  }, []);
+
+  useEffect(() => {
     async function load() {
       if (contract && contractMethods) {
         console.log("Contract loaded");
@@ -50,46 +50,25 @@ function App() {
     }
 
     load();
-    }, [contract, contractMethods]);
+  }, [contract, contractMethods]);
 
-    const handleMethod = (method) => {
-      console.log(method);
-      try {
-        contract.methods[method]().call().then(console.log);
-      } catch (e) {
-        console.error(e);
-      }
-    }
-
-   return (
-     <div>
-       The active account you're using is: {account} <br />
-       On the contract: {ContractAddress} <br />
-       And the JSON ABI is served: <br />
-        <pre>{JSON.stringify(ContractABI, null, 2)}</pre>
-       {/* If contract methods, display them in ul */}
-       {/* Add a dog by button */}
+  return (
     <div>
-      <AddDogForm 
-        account={account}
-        contract={contract}
-      />
-      {/* List the dogs */}
+      The active account you're using is: {account} <br />
+      On the contract: {ContractAddress} <br />
+      And the JSON ABI is served: <br />
+      <pre>{JSON.stringify(ContractABI, null, 2)}</pre>
+      {/* If contract methods, display them in ul */}
+      {/* Add a dog by button */}
+      <div>
+        <AddDogForm
+          account={account}
+          contract={contract}
+        />
 
+      </div>
     </div>
-
-
-        {contractMethods &&
-          <ul>
-            {contractMethods.map(method => (
-              <li key={method}>
-                <button onClick={() => handleMethod(method)}>{method}</button>
-              </li>
-            ))}
-          </ul>
-        }
-     </div>
-   );
+  );
 }
 
 export default App;
@@ -106,7 +85,7 @@ const AddDogForm = ({
     e.preventDefault();
     console.log(contract);
     console.log(account);
-    contract.methods.registerDog(name, birthdate, breeds).send({from: account});
+    contract.methods.registerDog(name, birthdate, breeds).send({ from: account });
   }
 
   return (

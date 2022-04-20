@@ -70,13 +70,21 @@ contract DogsOfDallas {
     }
 
     // View a dog by owner address and dog id
-    function viewDog(address _owner, uint _dog_id) public view returns (string memory _name, string memory _birthdate, string[] memory _breeds) {
-        // dogs_viewed++;
-        Dog memory dog = dogs[_dog_id - 1];
-        require(dog.owners[0] == _owner, "Only the owner of a dog can view it");
+    function viewDog(uint _dog_id) public view returns (string memory _name, string memory _birthdate, string[] memory _breeds) {
+
+        // Check if the dog exists
+        Dog memory dog = dogs[_dog_id - 1]; 
+        require(dog.id == _dog_id, "Dog does not exist");
+
         _name = dog.name;
         _birthdate = dog.birthdate;
         _breeds = dog.breeds;
+    }
+
+    // Get a list of dogs
+    function getDogs() public view returns (Dog[] memory _dogs) {
+        // dogs_viewed++;
+        _dogs = dogs;
     }
 
     // This function allows owners of dogs in the city of Dallas to view the number of dogs registered on the blockchain.
