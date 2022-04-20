@@ -1,0 +1,26 @@
+{
+  "name": "dogs-of-dallas-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "local-server.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "dev": "lite-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thetwosents/web3-dogs-of-dallas.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thetwosents/web3-dogs-of-dallas/issues"
+  },
+  "homepage": "https://github.com/thetwosents/web3-dogs-of-dallas#readme",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
