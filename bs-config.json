@@ -1,0 +1,6 @@
+{
+    "port": 3001,
+    "files": ["./build/contracts/*.{html,htm,css,js,json}"],
+    "server": { "baseDir": "./build" },
+    "cors": true
+}
